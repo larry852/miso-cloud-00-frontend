@@ -3,11 +3,11 @@ import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
   user: any;
   errors: string[];
 
@@ -16,13 +16,16 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.user = {
       username: '',
-      password: '',
+      password1: '',
+      first_name: '',
+      last_name: '',
+      email: '',
     };
   }
 
-  login() {
+  register() {
     this.errors = [];
-    this.api.login(this.user).subscribe(
+    this.api.register(this.user).subscribe(
       (response: any) => {
         console.log(response);
         sessionStorage.setItem('token', response.token);

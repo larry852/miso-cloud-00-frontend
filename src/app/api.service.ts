@@ -22,4 +22,12 @@ export class ApiService {
       this.httpOptions
     );
   }
+
+  public register(data) {
+    return this.httpClient.post(
+      this.SERVER_URL + '/create-user/',
+      JSON.stringify(data),
+      this.httpOptions
+    );
+  }
 }
