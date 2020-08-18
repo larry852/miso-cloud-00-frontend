@@ -104,4 +104,10 @@ export class EventsComponent implements OnInit {
       }
     );
   }
+
+  logout() {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
+    this.router.navigate(['/iniciar-sesion']);
+  }
 }

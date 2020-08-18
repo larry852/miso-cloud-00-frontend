@@ -7,11 +7,15 @@
             <h2><b>Eventos</b></h2>
           </div>
           <div class="col-xs-6">
+            <a class="btn btn-danger" (click)="logout()"
+              ><i class="material-icons">exit_to_app</i>
+              <span>Cerrar sesión</span></a
+            >
             <a
               href="#addEventModal"
               class="btn btn-success"
               data-toggle="modal"
-              (click)="initEvent()"
+              (click)="logout()"
               ><i class="material-icons">&#xE147;</i>
               <span>Agregar nuevo evento</span></a
             >
