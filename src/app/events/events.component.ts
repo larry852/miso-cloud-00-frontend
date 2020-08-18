@@ -46,6 +46,7 @@ export class EventsComponent implements OnInit {
       this.event[key] = '';
     }
     this.errors = null;
+    this.getEvents();
   }
 
   getEvents() {

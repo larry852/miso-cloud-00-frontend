@@ -15,7 +15,7 @@
               href="#addEventModal"
               class="btn btn-success"
               data-toggle="modal"
-              (click)="logout()"
+              (click)="initEvent()"
               ><i class="material-icons">&#xE147;</i>
               <span>Agregar nuevo evento</span></a
             >
@@ -27,10 +27,6 @@
           <tr>
             <th>Nombre</th>
             <th>Categoria</th>
-            <th>Lugar</th>
-            <th>Dirección</th>
-            <th>Fecha de inicio</th>
-            <th>Fecha de fin</th>
             <th>Tipo</th>
             <th>Acciones</th>
           </tr>
@@ -39,27 +35,34 @@
           <tr *ngFor="let event of events">
             <td>{{ event.event_name }}</td>
             <td>{{ categories[event.event_category] }}</td>
-            <td>{{ event.event_place }}</td>
-            <td>{{ event.event_address }}</td>
-            <td>
-              {{ event.event_initial_date | date: "MMM d, y, h:mm a" }}
-            </td>
-            <td>
-              {{ event.event_final_date | date: "MMM d, y, h:mm a" }}
-            </td>
             <td>{{ types[event.event_type] }}</td>
             <td>
+              <a
+                href="#detailEventModal"
+                class="view"
+                data-toggle="modal"
+                (click)="loadEvent(event)"
+                ><i
+                  class="material-icons"
+                  data-toggle="tooltip"
+                  title="Ver detalles"
+                  >&#xE417;</i
+                ></a
+              >
               <a
                 href="#editEventModal"
                 class="edit"
                 data-toggle="modal"
                 (click)="loadEvent(event)"
-                ><i class="material-icons" data-toggle="tooltip" title="Edit"
+                ><i class="material-icons" data-toggle="tooltip" title="Editar"
                   >&#xE254;</i
                 ></a
               >
               <a href="#deleteEventModal" class="delete" data-toggle="modal"
-                ><i class="material-icons" data-toggle="tooltip" title="Delete"
+                ><i
+                  class="material-icons"
+                  data-toggle="tooltip"
+                  title="Eliminar"
                   >&#xE872;</i
                 ></a
               >
@@ -311,6 +314,64 @@
             class="btn btn-info"
             value="Guardar"
             (click)="updateEvent()"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="detailEventModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h4 class="modal-title">Detalles evento</h4>
+          <button
+            #closeEditEventModal
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Nombre</label>
+            <h4>{{ event.event_name }}</h4>
+          </div>
+          <div class="form-group">
+            <label>Categoría</label>
+            <h4>{{ categories[event.event_category] }}</h4>
+          </div>
+          <div class="form-group">
+            <label>Dirección</label>
+            <h4>{{ event.event_address }}</h4>
+          </div>
+          <div class="form-group">
+            <label>Lugar</label>
+            <h4>{{ event.event_place }}</h4>
+          </div>
+          <div class="form-group">
+            <label>Fecha de inicio</label>
+            <h4>{{ event.event_initial_date | date: "MMM d, y, h:mm a" }}</h4>
+          </div>
+          <div class="form-group">
+            <label>Fecha de fin</label>
+            <h4>{{ event.event_final_date | date: "MMM d, y, h:mm a" }}</h4>
+          </div>
+          <div class="form-group">
+            <label>Tipo</label>
+            <h4>{{ types[event.event_type] }}</h4>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input
+            type="submit"
+            data-dismiss="modal"
+            class="btn btn-info"
+            value="Aceptar"
           />
         </div>
       </form>
