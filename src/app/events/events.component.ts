@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class EventsComponent implements OnInit {
   @ViewChild('closeAddEventModal') closeSaveModal: ElementRef;
+  @ViewChild('closeEditEventModal') closeEditModal: ElementRef;
   errors: string[];
   events: [];
   event = {
@@ -44,12 +45,12 @@ export class EventsComponent implements OnInit {
     for (const key in this.event) {
       this.event[key] = '';
     }
+    this.errors = null;
   }
 
   getEvents() {
     this.api.getEvents().subscribe(
       (response: any) => {
-        console.log(response);
         this.events = response;
       },
       (err) => {
@@ -62,13 +63,12 @@ export class EventsComponent implements OnInit {
   }
 
   saveEvent() {
-    this.errors = [];
+    this.errors = null;
     this.api.saveEvent(this.event).subscribe(
       (response: any) => {
-        console.log(response);
+        this.getEvents();
         this.closeSaveModal.nativeElement.click();
         this.initEvent();
-        this.getEvents();
       },
       (err) => {
         console.log(err);
@@ -76,6 +76,31 @@ export class EventsComponent implements OnInit {
           this.router.navigate(['/iniciar-sesion']);
         }
         this.errors = err.error;
+      }
+    );
+  }
+
+  loadEvent(event) {
+    this.errors = null;
+    delete event.thumbnail;
+    this.event = event;
+  }
+
+  updateEvent() {
+    this.errors = null;
+    this.api.updateEvent(this.event).subscribe(
+      (response: any) => {
+        this.getEvents();
+        this.closeEditModal.nativeElement.click();
+        this.initEvent();
+      },
+      (err) => {
+        console.log(err);
+        if (err.status === 401) {
+          this.router.navigate(['/iniciar-sesion']);
+        }
+        this.errors = err.error;
+        this.getEvents();
       }
     );
   }

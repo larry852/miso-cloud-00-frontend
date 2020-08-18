@@ -59,4 +59,19 @@ export class ApiService {
       this.httpOptions
     );
   }
+
+  public updateEvent(data) {
+    let token = sessionStorage.getItem('token');
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Token ' + token,
+      }),
+    };
+    return this.httpClient.put(
+      this.SERVER_URL + '/events/' + data.id + '/',
+      JSON.stringify(data),
+      this.httpOptions
+    );
+  }
 }
