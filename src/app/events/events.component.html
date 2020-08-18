@@ -7,10 +7,7 @@
             <h2><b>Eventos</b></h2>
           </div>
           <div class="col-xs-6">
-            <a
-              href="#addEmployeeModal"
-              class="btn btn-success"
-              data-toggle="modal"
+            <a href="#addEventModal" class="btn btn-success" data-toggle="modal"
               ><i class="material-icons">&#xE147;</i>
               <span>Agregar nuevo evento</span></a
             >
@@ -40,12 +37,12 @@
             <td>{{ event.event_final_date | date: "MMM d, y, h:mm a" }}</td>
             <td>{{ types[event.event_type] }}</td>
             <td>
-              <a href="#editEmployeeModal" class="edit" data-toggle="modal"
+              <a href="#editEventModal" class="edit" data-toggle="modal"
                 ><i class="material-icons" data-toggle="tooltip" title="Edit"
                   >&#xE254;</i
                 ></a
               >
-              <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"
+              <a href="#deleteEventModal" class="delete" data-toggle="modal"
                 ><i class="material-icons" data-toggle="tooltip" title="Delete"
                   >&#xE872;</i
                 ></a
@@ -58,13 +55,14 @@
   </div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
+<div id="addEventModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <form>
         <div class="modal-header">
           <h4 class="modal-title">Agregar evento</h4>
           <button
+            #closeAddEventModal
             type="button"
             class="close"
             data-dismiss="modal"
@@ -76,31 +74,88 @@
         <div class="modal-body">
           <div class="form-group">
             <label>Nombre</label>
-            <input type="text" class="form-control" required />
+            <input
+              type="text"
+              class="form-control"
+              required
+              [(ngModel)]="event.event_name"
+              name="name"
+            />
           </div>
           <div class="form-group">
             <label>Categoría</label>
-            <input type="text" class="form-control" required />
+            <select
+              [(ngModel)]="event.event_category"
+              class="form-control"
+              required
+              name="category"
+            >
+              <option
+                *ngFor="let category of categories | keyvalue"
+                [ngValue]="category.key"
+              >
+                {{ category.value }}
+              </option>
+            </select>
           </div>
           <div class="form-group">
             <label>Dirección</label>
-            <textarea class="form-control" required></textarea>
+            <textarea
+              class="form-control"
+              required
+              [(ngModel)]="event.event_address"
+              name="address"
+            ></textarea>
           </div>
           <div class="form-group">
             <label>Lugar</label>
-            <textarea class="form-control" required></textarea>
+            <textarea
+              class="form-control"
+              required
+              [(ngModel)]="event.event_place"
+              name="place"
+            ></textarea>
           </div>
           <div class="form-group">
             <label>Fecha de inicio</label>
-            <input type="text" class="form-control" required />
+            <input
+              type="datetime-local"
+              class="form-control"
+              required
+              [(ngModel)]="event.event_initial_date"
+              name="initial_date"
+            />
           </div>
           <div class="form-group">
             <label>Fecha de fin</label>
-            <input type="text" class="form-control" required />
+            <input
+              type="datetime-local"
+              class="form-control"
+              required
+              [(ngModel)]="event.event_final_date"
+              name="final_date"
+            />
           </div>
           <div class="form-group">
             <label>Tipo</label>
-            <input type="text" class="form-control" required />
+            <select
+              [(ngModel)]="event.event_type"
+              class="form-control"
+              required
+              name="type"
+            >
+              <option
+                *ngFor="let type of types | keyvalue"
+                [ngValue]="type.key"
+              >
+                {{ type.value }}
+              </option>
+            </select>
+          </div>
+          <div *ngIf="errors" class="alert alert-danger" role="alert">
+            <li *ngFor="let error of errors | keyvalue">
+              {{ error.value }}
+            </li>
           </div>
         </div>
         <div class="modal-footer">
@@ -110,14 +165,19 @@
             data-dismiss="modal"
             value="Cancelar"
           />
-          <input type="submit" class="btn btn-success" value="Agregar" />
+          <input
+            type="submit"
+            class="btn btn-success"
+            value="Agregar"
+            (click)="saveEvent()"
+          />
         </div>
       </form>
     </div>
   </div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
+<div id="editEventModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <form>
@@ -176,7 +236,7 @@
   </div>
 </div>
 <!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
+<div id="deleteEventModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <form>
