@@ -1,1 +1,212 @@
-<p style="padding: 15px;">This is the about page that describes your app</p>
+<div class="container">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-xs-6">
+            <h2><b>Eventos</b></h2>
+          </div>
+          <div class="col-xs-6">
+            <a
+              href="#addEmployeeModal"
+              class="btn btn-success"
+              data-toggle="modal"
+              ><i class="material-icons">&#xE147;</i>
+              <span>Agregar nuevo evento</span></a
+            >
+          </div>
+        </div>
+      </div>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Categoria</th>
+            <th>Lugar</th>
+            <th>Dirección</th>
+            <th>Fecha de inicio</th>
+            <th>Fecha de fin</th>
+            <th>Tipo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let event of events">
+            <td>{{ event.event_name }}</td>
+            <td>{{ categories[event.event_category] }}</td>
+            <td>{{ event.event_place }}</td>
+            <td>{{ event.event_address }}</td>
+            <td>{{ event.event_initial_date | date: "MMM d, y, h:mm a" }}</td>
+            <td>{{ event.event_final_date | date: "MMM d, y, h:mm a" }}</td>
+            <td>{{ types[event.event_type] }}</td>
+            <td>
+              <a href="#editEmployeeModal" class="edit" data-toggle="modal"
+                ><i class="material-icons" data-toggle="tooltip" title="Edit"
+                  >&#xE254;</i
+                ></a
+              >
+              <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"
+                ><i class="material-icons" data-toggle="tooltip" title="Delete"
+                  >&#xE872;</i
+                ></a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="addEmployeeModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h4 class="modal-title">Agregar evento</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Categoría</label>
+            <input type="text" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Dirección</label>
+            <textarea class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Lugar</label>
+            <textarea class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Fecha de inicio</label>
+            <input type="text" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Fecha de fin</label>
+            <input type="text" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Tipo</label>
+            <input type="text" class="form-control" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input
+            type="button"
+            class="btn btn-default"
+            data-dismiss="modal"
+            value="Cancelar"
+          />
+          <input type="submit" class="btn btn-success" value="Agregar" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="editEmployeeModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h4 class="modal-title">Editar evento</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Categoría</label>
+            <input type="text" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Dirección</label>
+            <textarea class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Lugar</label>
+            <textarea class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Fecha de inicio</label>
+            <input type="text" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Fecha de fin</label>
+            <input type="text" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Tipo</label>
+            <input type="text" class="form-control" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input
+            type="button"
+            class="btn btn-default"
+            data-dismiss="modal"
+            value="Cancelar"
+          />
+          <input type="submit" class="btn btn-info" value="Guardar" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteEmployeeModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h4 class="modal-title">Eliminar evento</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>¿Está seguro de que desea eliminar este evento?</p>
+          <p class="text-warning">
+            <small>Esta acción no se puede deshacer.</small>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <input
+            type="button"
+            class="btn btn-default"
+            data-dismiss="modal"
+            value="Cancelar"
+          />
+          <input type="submit" class="btn btn-danger" value="Eliminar" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

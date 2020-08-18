@@ -24,6 +24,7 @@
   padding: 30px;
 }
 .signup-form h2 {
+  margin: 10px 0 25px;
   color: #333;
   font-weight: bold;
   margin-top: 0;
@@ -72,4 +73,5 @@
 .signup-form .hint-text {
   padding-bottom: 15px;
   text-align: center;
+  color: #fff;
 }

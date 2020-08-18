@@ -8,10 +8,13 @@ export class ApiService {
   private SERVER_URL = 'http://localhost:8080/api';
 
   private httpOptions: any;
+  private authHttpOptions: any;
 
   constructor(private httpClient: HttpClient) {
-    this.httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    this.authHttpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
     };
   }
 
@@ -19,7 +22,7 @@ export class ApiService {
     return this.httpClient.post(
       this.SERVER_URL + '/api-auth/',
       JSON.stringify(data),
-      this.httpOptions
+      this.authHttpOptions
     );
   }
 
@@ -27,7 +30,18 @@ export class ApiService {
     return this.httpClient.post(
       this.SERVER_URL + '/create-user/',
       JSON.stringify(data),
-      this.httpOptions
+      this.authHttpOptions
     );
+  }
+
+  public getEvents() {
+    let token = sessionStorage.getItem('token');
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Token ' + token,
+      }),
+    };
+    return this.httpClient.get(this.SERVER_URL + '/events/', this.httpOptions);
   }
 }
