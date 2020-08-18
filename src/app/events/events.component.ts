@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class EventsComponent implements OnInit {
   @ViewChild('closeAddEventModal') closeSaveModal: ElementRef;
   @ViewChild('closeEditEventModal') closeEditModal: ElementRef;
+  @ViewChild('closeDeleteEventModal') closeDeleteModal: ElementRef;
   errors: string[];
   events: [];
   event = {
@@ -102,6 +103,23 @@ export class EventsComponent implements OnInit {
         }
         this.errors = err.error;
         this.getEvents();
+      }
+    );
+  }
+
+  deleteEvent() {
+    this.errors = null;
+    this.api.deleteEvent(this.event).subscribe(
+      (response: any) => {
+        this.getEvents();
+        this.closeDeleteModal.nativeElement.click();
+        this.initEvent();
+      },
+      (err) => {
+        console.log(err);
+        if (err.status === 401) {
+          this.router.navigate(['/iniciar-sesion']);
+        }
       }
     );
   }

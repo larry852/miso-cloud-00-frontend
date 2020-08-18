@@ -27,7 +27,6 @@ export class RegisterComponent implements OnInit {
     this.errors = [];
     this.api.register(this.user).subscribe(
       (response: any) => {
-        console.log(response);
         sessionStorage.setItem('token', response.token);
         sessionStorage.setItem('user', JSON.stringify(response.user));
         this.router.navigate(['/eventos']);

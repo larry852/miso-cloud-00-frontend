@@ -5,7 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ApiService {
-  private SERVER_URL = 'http://localhost:8080/api';
+  // private SERVER_URL = 'http://localhost:8080/api';
+  private SERVER_URL = 'http://172.24.98.169:8080/api';
 
   private httpOptions: any;
   private authHttpOptions: any;
@@ -71,6 +72,20 @@ export class ApiService {
     return this.httpClient.put(
       this.SERVER_URL + '/events/' + data.id + '/',
       JSON.stringify(data),
+      this.httpOptions
+    );
+  }
+
+  public deleteEvent(data) {
+    let token = sessionStorage.getItem('token');
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Token ' + token,
+      }),
+    };
+    return this.httpClient.delete(
+      this.SERVER_URL + '/events/' + data.id + '/',
       this.httpOptions
     );
   }
